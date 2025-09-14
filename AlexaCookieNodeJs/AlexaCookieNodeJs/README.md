@@ -39,3 +39,11 @@ Empty username and empty password means no authentication required
 - **IMPORTANT!** After succesfull login on second webpage, a message will be prompted to close the browser: don't close the browser, but instead close only that tab (:82) and go back to the original tab (:81)
 - Copy the RefreshURL and RefreshOptions in the relative fields on Hubitat Alexa TTS App
 - Refresh will be now handled automatically between Hubitat and wrapper every 6 days, without human intervention requirement
+
+## Running with Docker
+
+1. Make sure you have **Docker** and **Docker Compose** installed.
+
+2. Build and start the containers:
+   ```bash
+   docker compose up -d --build

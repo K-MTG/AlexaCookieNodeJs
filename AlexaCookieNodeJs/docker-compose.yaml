@@ -1,0 +1,26 @@
+services:
+  alexa-cookie:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: alexa-cookie
+    ports:
+      - "8181:81"   # external 8181 → internal 81
+#      - "8182:82"   # external 8182 → internal 82
+    volumes:
+      - ./AlexaCookieNodeJs/config.json:/usr/src/app/AlexaCookieNodeJs/config.json
+    restart: unless-stopped
+
+  restarter:
+    image: docker:cli
+    container_name: alexa-cookie-restarter
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    entrypoint: [ "sh", "-c" ]
+    command: >
+      "while true;
+       do sleep 86400; # 24 hours
+       echo 'Restarting alexa-cookie...';
+       docker restart alexa-cookie;
+       done"
+    restart: unless-stopped
